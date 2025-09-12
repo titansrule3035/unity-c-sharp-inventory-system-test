@@ -47,7 +47,7 @@ Throughout these projects, I’ve applied skills in:
 ## 🌐 Connect with Me
 
 - [LinkedIn](https://www.linkedin.com/in/joseph-rodriguez-006b4b303)  
-- [Email](jorod3035@gmail.com)  
+- [Email](mailto:jorod3035@gmail.com)  
 
 ---
 
