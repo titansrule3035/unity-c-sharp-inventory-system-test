@@ -8,7 +8,7 @@ Welcome to my **Computer Science Portfolio**, a collection of projects demonstra
 
 Below is a curated list of projects, with links to their respective repositories and highlights of the technologies used.  
 
-### 🔹 [Project Name 1]([link-to-repo](https://github.com/titansrule3035/solo-comp-sci-portfolio/tree/main/projects/CSharpToDoList))
+### 🔹 [CSharpToDoList]([link-to-repo](https://github.com/titansrule3035/solo-comp-sci-portfolio/tree/main/projects/CSharpToDoList))
 **Description:** A simple C# "To-Do List" console application that stores data into a text file.  
 **Technologies:** C#, .NET Framework
 **Highlights:** Filestream, the save file is encrypted to prevent outside sources from reading/writing to sensitive data.
