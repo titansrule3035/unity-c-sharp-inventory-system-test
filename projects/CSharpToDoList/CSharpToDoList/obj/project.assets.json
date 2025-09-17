@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Princ\\source\\repos\\CSharpToDoList\\CSharpToDoList\\CSharpToDoList.csproj",
+      "projectUniqueName": "C:\\Users\\Princ\\source\\repos\\solo-comp-sci-portfolio\\projects\\CSharpToDoList\\CSharpToDoList\\CSharpToDoList.csproj",
       "projectName": "CSharpToDoList",
-      "projectPath": "C:\\Users\\Princ\\source\\repos\\CSharpToDoList\\CSharpToDoList\\CSharpToDoList.csproj",
+      "projectPath": "C:\\Users\\Princ\\source\\repos\\solo-comp-sci-portfolio\\projects\\CSharpToDoList\\CSharpToDoList\\CSharpToDoList.csproj",
       "packagesPath": "C:\\Users\\Princ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Princ\\source\\repos\\CSharpToDoList\\CSharpToDoList\\obj\\",
+      "outputPath": "C:\\Users\\Princ\\source\\repos\\solo-comp-sci-portfolio\\projects\\CSharpToDoList\\CSharpToDoList\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,7 +51,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net9.0": {
@@ -72,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.1.25451.107/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

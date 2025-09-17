@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
-using System.IO;
-using System.Numerics;
-using System.Runtime.Intrinsics;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace CSharpToDoList
 {
@@ -20,23 +18,34 @@ namespace CSharpToDoList
             Clear,
             End
         };
+
         static void Main(string[] args)
         {
             string username = Environment.UserName;
             string fileName = "myTasks.txt";
             List<Task> tasks = LoadTasksFromFile();
             string input = "";
-            bool saved = true;
             Screen activeScreen = Screen.Title;
-            List<Screen> titleOptions = new List<Screen> { Screen.View, Screen.Add, Screen.Mark, Screen.Delete, Screen.Clear, Screen.End };
+
+            List<Screen> titleOptions = new List<Screen>
+            {
+                Screen.View,
+                Screen.Add,
+                Screen.Mark,
+                Screen.Delete,
+                Screen.Clear,
+                Screen.End
+            };
+
             Console.WriteLine("Welcome to the To-Do List!");
+
             while (activeScreen != Screen.End)
             {
                 while (activeScreen == Screen.Title)
                 {
                     Console.WriteLine("======= TO-DO LIST =======");
                     Console.WriteLine("1. View Tasks");
-                    Console.WriteLine("2. Add Tasks");
+                    Console.WriteLine("2. Add Task");
                     Console.WriteLine("3. Mark Task Completed");
                     Console.WriteLine("4. Delete Task");
                     Console.WriteLine("5. Clear All Tasks");
@@ -46,6 +55,7 @@ namespace CSharpToDoList
                     PromptUser(ref input);
                     activeScreen = HandleMenuInput(input, titleOptions, activeScreen);
                 }
+
                 while (activeScreen == Screen.View)
                 {
                     Console.WriteLine("======= YOUR TASKS =======");
@@ -55,32 +65,25 @@ namespace CSharpToDoList
                     }
                     else
                     {
-                        string filler;
                         for (int i = 0; i < tasks.Count; i++)
                         {
-                            if (tasks[i].completed)
-                            {
-                                filler = "X";
-                            }
-                            else
-                            {
-                                filler = " ";
-                            }
-                            Console.WriteLine((i + 1) + ". [" + filler + "] " + tasks[i].description);
+                            string filler = tasks[i].completed ? "X" : " ";
+                            Console.WriteLine($"{i + 1}. [{filler}] {tasks[i].description}");
                         }
                     }
                     activeScreen = Screen.Title;
                 }
+
                 while (activeScreen == Screen.Add)
                 {
                     Console.WriteLine("==========================");
                     Console.WriteLine("Enter the new task: ");
                     PromptUser(ref input);
-                    Task newTask = new Task(input, false);
-                    tasks.Add(newTask);
+                    tasks.Add(new Task(input, false));
                     Console.WriteLine("Task added!");
                     activeScreen = Screen.Title;
                 }
+
                 while (activeScreen == Screen.Mark)
                 {
                     Console.WriteLine("==========================");
@@ -88,13 +91,15 @@ namespace CSharpToDoList
                     PromptUser(ref input);
                     activeScreen = MarkComplete(input, tasks);
                 }
+
                 while (activeScreen == Screen.Delete)
                 {
-                    Console.WriteLine("============================");
+                    Console.WriteLine("==========================");
                     Console.WriteLine("Enter the task number you wish to delete.");
                     PromptUser(ref input);
                     activeScreen = DeleteTask(input, tasks);
                 }
+
                 while (activeScreen == Screen.Clear)
                 {
                     Console.WriteLine("Are you sure you want to clear all tasks? (y/n):");
@@ -103,52 +108,65 @@ namespace CSharpToDoList
                     {
                         tasks.Clear();
                         Console.WriteLine("Tasks cleared!");
-                        activeScreen = Screen.Title;
                     }
                     else if (input == "n")
                     {
                         Console.WriteLine("Clear cancelled.");
-                        activeScreen = Screen.Title;
                     }
                     else
                     {
                         Console.WriteLine("Please enter a valid option.");
                         activeScreen = Screen.Clear;
+                        continue;
                     }
+                    activeScreen = Screen.Title;
                 }
             }
+
             SaveTasksToFile(tasks);
             Console.WriteLine("Thank you for using the To-Do List. Goodbye!");
+
+            // ====================
+            // LOCAL FUNCTIONS
+            // ====================
 
             List<Task> LoadTasksFromFile()
             {
                 if (!File.Exists(fileName))
                 {
-                    File.Create(fileName);
+                    using (File.Create(fileName)) { }
+                    return new List<Task>();
                 }
+
                 string[] readFile = File.ReadAllLines(fileName);
-                List<Task> tasks = new List<Task>();
+                List<Task> loaded = new List<Task>();
 
-                for (int i = 0; i < readFile.Count(); i++)
+                foreach (var line in readFile)
                 {
-                    string description = readFile[i].Substring(0, readFile[i].IndexOf('|'));
-                    string completedStr = readFile[i].Substring(readFile[i].IndexOf('|') + 1);
+                    string decoded = Decode(line);
+                    if (string.IsNullOrWhiteSpace(decoded) || !decoded.Contains("|")) continue;
+
+                    string description = decoded.Substring(0, decoded.IndexOf('|'));
+                    string completedStr = decoded.Substring(decoded.IndexOf('|') + 1);
                     bool completed = (completedStr == "1");
-                    Task loadedTask = new Task(description, completed);
-                    tasks.Add(loadedTask);
+
+                    loaded.Add(new Task(description, completed));
                 }
 
-                return tasks;
+                return loaded;
             }
+
             void SaveTasksToFile(List<Task> tasks)
             {
-                StreamWriter writer = new StreamWriter(fileName);
-                foreach (Task task in tasks)
+                using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    writer.WriteLine(task.GetTaskString());
+                    foreach (Task task in tasks)
+                    {
+                        writer.WriteLine(Encode(task.GetTaskString()));
+                    }
                 }
-                writer.Close();
             }
+
             Screen HandleMenuInput(string input, List<Screen> options, Screen currentScreen)
             {
                 try
@@ -158,104 +176,80 @@ namespace CSharpToDoList
                     {
                         return options[choice - 1];
                     }
-                    else
-                    {
-                        Console.WriteLine("Please enter a valid option.");
-                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Please enter a valid option.");
-                }
+                catch { }
+                Console.WriteLine("Please enter a valid option.");
                 return currentScreen;
             }
 
             Screen MarkComplete(string input, List<Task> tasks)
             {
-                if (tasks.Count != 0)
+                if (tasks.Count == 0)
                 {
-                    int completedTasks = 0;
-                    for (int i = 0; i < tasks.Count; i++)
+                    Console.WriteLine("No tasks to mark as complete.");
+                    return Screen.Title;
+                }
+
+                if (tasks.All(t => t.completed))
+                {
+                    Console.WriteLine("No incomplete tasks to mark.");
+                    return Screen.Title;
+                }
+
+                try
+                {
+                    int choice = Convert.ToInt32(input);
+                    if (choice >= 1 && choice <= tasks.Count)
                     {
-                        if (tasks[i].completed)
+                        if (tasks[choice - 1].completed)
                         {
-                            completedTasks++;
-                        }
-                        if (completedTasks == tasks.Count)
-                        {
-                            Console.WriteLine("No tasks to mark as complete.");
-                            return Screen.Title;
+                            Console.WriteLine("That task is already marked complete.");
                         }
                         else
                         {
-                            try
-                            {
-                                int choice = Convert.ToInt32(input);
-                                if (choice >= 1 && choice <= tasks.Count)
-                                {
-                                    if (tasks[choice - 1].completed)
-                                    {
-                                        Console.WriteLine("That task is already marked complete.");
-                                        return Screen.Title;
-                                    }
-                                    List<Task> nTasks = tasks;
-                                    nTasks[choice - 1].MarkComplete();
-                                    tasks = nTasks;
-                                    Console.WriteLine("Task " + choice + " marked as complete!");
-                                    return Screen.Title;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Invalid task number.");
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine("Invalid task number.");
-                            }
+                            tasks[choice - 1].MarkComplete();
+                            Console.WriteLine($"Task {choice} marked as complete!");
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("Invalid task number.");
+                    }
                 }
-                else
+                catch
                 {
-                    Console.WriteLine("No tasks to mark as complete.");
+                    Console.WriteLine("Invalid task number.");
                 }
+
                 return Screen.Title;
             }
 
             Screen DeleteTask(string input, List<Task> tasks)
             {
-                if (tasks.Count != 0)
+                if (tasks.Count == 0)
                 {
-                    try
+                    Console.WriteLine("No tasks to delete.");
+                    return Screen.Title;
+                }
+
+                try
+                {
+                    int choice = Convert.ToInt32(input);
+                    if (choice >= 1 && choice <= tasks.Count)
                     {
-                        int choice = Convert.ToInt32(input);
-                        if (choice >= 1 && choice <= tasks.Count)
-                        {
-                            for (int i = 0; i < tasks.Count; ++i)
-                            {
-                                if (i == choice - 1)
-                                {
-                                    tasks.Remove(tasks[i]);
-                                }
-                            }
-                            Console.WriteLine("Task " + choice + " deleted.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid task number.");
-                        }
+                        tasks.RemoveAt(choice - 1);
+                        Console.WriteLine($"Task {choice} deleted.");
                     }
-                    catch (Exception e)
+                    else
                     {
                         Console.WriteLine("Invalid task number.");
                     }
                 }
-
-                else
+                catch
                 {
-                    Console.WriteLine("No tasks to delete.");
+                    Console.WriteLine("Invalid task number.");
                 }
+
                 return Screen.Title;
             }
 
@@ -264,32 +258,67 @@ namespace CSharpToDoList
                 Console.Write($"<{username}>: ");
                 input = Console.ReadLine();
             }
+
+            string Encode(object input)
+            {
+                string stringedInput = input.ToString();
+                int n = 8;
+                StringBuilder sb = new StringBuilder();
+                foreach (char c in stringedInput.ToCharArray())
+                {
+                    sb.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
+                }
+                string r1 = sb.ToString();
+                string r2 = string.Join(string.Empty, r1.Select((x, i) => i > 0 && i % n == 0 ? $" {x}" : x.ToString()));
+                var plainTextBytes = Encoding.UTF8.GetBytes(r2);
+                string r3 = Convert.ToBase64String(plainTextBytes);
+                StringBuilder sb2 = new StringBuilder();
+                foreach (char c in r3.ToCharArray())
+                {
+                    sb2.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
+                }
+                string r4 = sb2.ToString();
+                string r5 = string.Join(string.Empty, r4.Select((x, i) => i > 0 && i % n == 0 ? $" {x}" : x.ToString()));
+                return r5;
+            }
+
+            string Decode(string input)
+            {
+                string r1 = input.Replace(" ", string.Empty);
+                List<byte> byteList = new List<byte>();
+                for (int i = 0; i < r1.Length; i += 8)
+                {
+                    byteList.Add(Convert.ToByte(r1.Substring(i, 8), 2));
+                }
+                string r2 = Encoding.ASCII.GetString(byteList.ToArray());
+                var base64EncodedBytes = Convert.FromBase64String(r2);
+                string r3 = Encoding.UTF8.GetString(base64EncodedBytes);
+                string r4 = r3.Replace(" ", string.Empty);
+                List<byte> byteList2 = new List<byte>();
+                for (int i = 0; i < r4.Length; i += 8)
+                {
+                    byteList2.Add(Convert.ToByte(r4.Substring(i, 8), 2));
+                }
+                return Encoding.ASCII.GetString(byteList2.ToArray());
+            }
         }
+
         class Task
         {
             public string description;
             public bool completed;
+
             public Task(string _description, bool _completed)
             {
                 description = _description;
                 completed = _completed;
             }
-            public string GetDescription()
-            {
-                return description;
-            }
-            public void MarkComplete()
-            {
-                completed = true;
-            }
-            public int GetCompletedAsInt()
-            {
-                return (completed ? 1 : 0);
-            }
-            public string GetTaskString()
-            {
-                return description + "|" + GetCompletedAsInt();
-            }
+
+            public void MarkComplete() => completed = true;
+
+            public int GetCompletedAsInt() => (completed ? 1 : 0);
+
+            public string GetTaskString() => description + "|" + GetCompletedAsInt();
         };
     }
 }
