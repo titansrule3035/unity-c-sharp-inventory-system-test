@@ -38,4 +38,4 @@ Select an option:
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License in its parent repository.
