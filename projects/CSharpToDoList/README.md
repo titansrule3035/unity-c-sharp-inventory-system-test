@@ -48,9 +48,7 @@ is stored as an encrypted Base64 string in myTasks.txt. The program automaticall
 
 ### Running the Application
 
-```
-dotnet run
-```
+Simply clone the repository, navigate to the debug release, and run the CSharpToDoList.exe file.
 
 ## Usage
 
