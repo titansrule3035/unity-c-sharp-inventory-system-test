@@ -1,7 +1,7 @@
 # CSharpToDoList
 
 A simple console-based To-Do List application written in C#.
-Tasks are stored in an **encoded format** for basic obfuscation, making the saved file unreadable in plain text.
+Tasks are stored in an **encrypted format** using AES, making the saved file unreadable in plain text.
 
 ## Features
 
@@ -9,7 +9,7 @@ Tasks are stored in an **encoded format** for basic obfuscation, making the save
 * View all tasks
 * Mark tasks as completed
 * Remove tasks
-* Tasks are **saved to disk in an encoded format**
+* Tasks are **saved to disk in an encrypted format** with per-task IVs
 
 ## How It Works
 
@@ -19,16 +19,16 @@ Each task is stored as:
 <description>|<completed_flag>
 ```
 
-* `description` --> the task text
-* `completed_flag` --> `1` if completed, `0` if not
+* description -> the task text
+* completed\_flag -> 1 if completed, 0 if not
 
-Before saving, the task string is encoded using a **two-layer encoding system**:
+Before saving, each task string is encrypted using AES-256:
 
-1. Convert each character to an 8-bit binary string.
-2. Base64-encode the resulting binary string.
-3. Convert the Base64 string into binary again for final storage.
+1. The program derives a 256-bit AES key from the username + a persistent salt using PBKDF2 (Rfc2898DeriveBytes) with 50,000 iterations.
+2. Each task gets its own initialization vector (IV) which is stored alongside the ciphertext.
+3. The encrypted bytes are converted to Base64 for safe storage in myTasks.txt.
 
-When loading, the program reverses these steps using its decoding function, restoring the original task text.
+When loading, the program reads the Base64, retrieves the IV for each task, and decrypts it using the derived key.
 
 ### Example
 
@@ -38,23 +38,17 @@ A task like:
 Buy groceries|0
 ```
 
-might appear in `myTasks.txt` as a series of binary numbers like:
-
-```
-01000010 01110101 01111001 00100000 01100111 01110010 ...
-```
-
-The program automatically decodes it back to `Buy groceries|0` when reading the file.
+is stored as an encrypted Base64 string in myTasks.txt. The program automatically decrypts it back to Buy groceries|0 when reading the file.
 
 ## Getting Started
 
 ### Prerequisites
 
-* [.NET SDK](https://dotnet.microsoft.com/download) installed
+* .NET SDK installed
 
 ### Running the Application
 
-```bash
+```
 dotnet run
 ```
 
