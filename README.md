@@ -38,7 +38,7 @@ Throughout these projects, I’ve applied skills in:
 
 ## 📈 GitHub Stats
 
-![Portfolio Stats](https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=radical)
+![Portfolio Stats](https://github-readme-stats.vercel.app/api?username=titansrule3035&show_icons=true&theme=radical)
 
 ---
 
