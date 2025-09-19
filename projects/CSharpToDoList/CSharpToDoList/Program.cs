@@ -83,6 +83,7 @@ namespace CSharpToDoList
                     Console.WriteLine("==========================");
                     Console.WriteLine("Choose an option.");
                     PromptUser(ref input);
+                    Console.Clear();
                     activeScreen = HandleMenuInput(input, titleOptions, activeScreen);
                 }
 
@@ -109,6 +110,7 @@ namespace CSharpToDoList
                     Console.WriteLine("==========================");
                     Console.WriteLine("Enter the new task: ");
                     PromptUser(ref input);
+                    Console.Clear();
                     tasks.Add(new Task(input, false));
                     Console.WriteLine("Task added!");
                     activeScreen = Screen.Title;
@@ -117,17 +119,45 @@ namespace CSharpToDoList
                 while (activeScreen == Screen.Mark)
                 {
                     Console.WriteLine("==========================");
-                    Console.WriteLine("Enter the task number you wish to mark as completed.");
-                    PromptUser(ref input);
-                    activeScreen = MarkComplete(input, tasks);
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("No tasks yet!");
+                        activeScreen = Screen.Title;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < tasks.Count; i++)
+                        {
+                            string filler = tasks[i].completed ? "X" : " ";
+                            Console.WriteLine($"{i + 1}. [{filler}] {tasks[i].description}");
+                        }
+                        Console.WriteLine("==========================");
+                        Console.WriteLine("Enter the task number you wish to mark as completed.");
+                        PromptUser(ref input);
+                        activeScreen = MarkComplete(input, tasks);
+                    }
                 }
 
                 while (activeScreen == Screen.Delete)
                 {
                     Console.WriteLine("==========================");
-                    Console.WriteLine("Enter the task number you wish to delete.");
-                    PromptUser(ref input);
-                    activeScreen = DeleteTask(input, tasks);
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("No tasks yet!");
+                        activeScreen = Screen.Title;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < tasks.Count; i++)
+                        {
+                            string filler = tasks[i].completed ? "X" : " ";
+                            Console.WriteLine($"{i + 1}. [{filler}] {tasks[i].description}");
+                        }
+                        Console.WriteLine("==========================");
+                        Console.WriteLine("Enter the task number you wish to delete.");
+                        PromptUser(ref input);
+                        activeScreen = DeleteTask(input, tasks);
+                    }
                 }
 
                 while (activeScreen == Screen.Clear)
@@ -137,16 +167,19 @@ namespace CSharpToDoList
                     if (input == "y")
                     {
                         tasks.Clear();
+                        Console.Clear();
                         Console.WriteLine("Tasks cleared!");
                     }
                     else if (input == "n")
                     {
+                        Console.Clear();
                         Console.WriteLine("Clear cancelled.");
                     }
                     else
                     {
                         Console.WriteLine("Please enter a valid option.");
                         activeScreen = Screen.Clear;
+                        Console.WriteLine("==========================");
                         continue;
                     }
                     activeScreen = Screen.Title;
@@ -258,6 +291,7 @@ namespace CSharpToDoList
                         else
                         {
                             tasks[choice - 1].MarkComplete();
+                            Console.Clear();
                             Console.WriteLine($"Task {choice} marked as complete!");
                         }
                     }
