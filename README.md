@@ -10,18 +10,18 @@ Below is a curated list of projects, with links to their respective repositories
 
 ### 🔹 [C# To Do List](https://github.com/titansrule3035/solo-comp-sci-portfolio/tree/main/projects/CSharpToDoList)
 **Description:** A simple C# "To-Do List" console application that stores data into a text file.  
-**Technologies:** C# .NET Framework, and Microsoft Cryptography.  
+**Technologies:** C# .NET Framework, Microsoft Cryptography  
 **Highlights:** Filestream and cryptography, the save file is obfuscated and then encrypted to prevent outside sources from reading/writing to sensitive data.
 
 ### 🔹 [Project Name 2](link-to-repo)
-**Description:** Short summary of the project.  
-**Technologies:** JavaScript, React, Node.js  
-**Highlights:** Notable features or functionality.
+**Description:** Brief summary of the project.  
+**Technologies:** List of technologies used.  
+**Highlights:** Key features or functionality.
 
 ### 🔹 [Project Name 3](link-to-repo)
-**Description:** Short summary of the project.  
-**Technologies:** C++, OpenCV (or other)  
-**Highlights:** Key algorithms, optimizations, or technical accomplishments.
+**Description:** Brief summary of the project.  
+**Technologies:** List of technologies used.  
+**Highlights:** Key features or functionality.
 
 *(Add more projects as needed)*  
 
@@ -31,10 +31,8 @@ Below is a curated list of projects, with links to their respective repositories
 
 Throughout these projects, I’ve applied skills in:  
 
-- **Programming Languages:** Python, Java, C++, JavaScript, SQL  
-- **Web Development:** HTML, CSS, React, Node.js  
-- **Data & Machine Learning:** Pandas, NumPy, scikit-learn, TensorFlow  
-- **Tools & Platforms:** Git, GitHub, Docker, Linux  
+- **Programming Languages:** C#  
+- **Tools & Platforms:** Git, GitHub, Windows 11, .NET 9  
 
 ---
 
