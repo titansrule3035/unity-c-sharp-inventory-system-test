@@ -11,7 +11,7 @@ Below is a curated list of projects, with links to their respective repositories
 ### 🔹 [C# To Do List](https://github.com/titansrule3035/solo-comp-sci-portfolio/tree/main/projects/CSharpToDoList)
 **Description:** A simple C# "To-Do List" console application that stores data into a text file.  
 **Technologies:** C#, .NET Framework
-**Highlights:** Filestream, the save file is encrypted to prevent outside sources from reading/writing to sensitive data.
+**Highlights:** Filestream and cryptography, the save file is obfuscated and then encrypted to prevent outside sources from reading/writing to sensitive data.
 
 ### 🔹 [Project Name 2](link-to-repo)
 **Description:** Short summary of the project.  
