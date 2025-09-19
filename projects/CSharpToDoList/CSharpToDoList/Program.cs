@@ -297,11 +297,13 @@ namespace CSharpToDoList
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("Invalid task number.");
                     }
                 }
                 catch
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid task number.");
                 }
 
@@ -326,11 +328,13 @@ namespace CSharpToDoList
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("Invalid task number.");
                     }
                 }
                 catch
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid task number.");
                 }
 
