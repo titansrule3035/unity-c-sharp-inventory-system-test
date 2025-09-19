@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CSharpToDoList
@@ -23,9 +24,40 @@ namespace CSharpToDoList
         {
             string username = Environment.UserName;
             string fileName = "myTasks.txt";
-            List<Task> tasks = LoadTasksFromFile();
+            string saltFile = "salt.bin";
             string input = "";
             Screen activeScreen = Screen.Title;
+            byte[] key;
+            byte[] salt = new byte[16];
+            List<Task> tasks;
+
+            // =========================
+            // 1️⃣ Initialize or load salt
+            // =========================
+            if (!File.Exists(saltFile))
+            {
+                RandomNumberGenerator.Fill(salt);
+                File.WriteAllBytes(saltFile, salt);
+            }
+            else
+            {
+                salt = File.ReadAllBytes(saltFile);
+            }
+
+            // =========================
+            // 2️⃣ Derive AES key from username + salt
+            // =========================
+            using (var keyGen = new Rfc2898DeriveBytes(username, salt, 50000))
+            {
+                key = keyGen.GetBytes(32); // 256-bit AES key
+            }
+
+            // =========================
+            // 3️⃣ Load tasks from file
+            // =========================
+            tasks = LoadTasksFromFile();
+
+            Console.WriteLine("Welcome to the To-Do List!");
 
             List<Screen> titleOptions = new List<Screen>
             {
@@ -36,8 +68,6 @@ namespace CSharpToDoList
                 Screen.Clear,
                 Screen.End
             };
-
-            Console.WriteLine("Welcome to the To-Do List!");
 
             while (activeScreen != Screen.End)
             {
@@ -123,6 +153,9 @@ namespace CSharpToDoList
                 }
             }
 
+            // =========================
+            // 4️⃣ Save tasks before exit
+            // =========================
             SaveTasksToFile(tasks);
             Console.WriteLine("Thank you for using the To-Do List. Goodbye!");
 
@@ -134,7 +167,6 @@ namespace CSharpToDoList
             {
                 if (!File.Exists(fileName))
                 {
-                    using (File.Create(fileName)) { }
                     return new List<Task>();
                 }
 
@@ -143,14 +175,29 @@ namespace CSharpToDoList
 
                 foreach (var line in readFile)
                 {
-                    string decoded = Decode(line);
-                    if (string.IsNullOrWhiteSpace(decoded) || !decoded.Contains("|")) continue;
+                    try
+                    {
+                        // Convert from Base64 and decrypt
+                        byte[] encryptedBytes = Convert.FromBase64String(line);
+                        string decrypted = Decrypt(encryptedBytes, key);
+                        if (string.IsNullOrWhiteSpace(decrypted) || !decrypted.Contains("|")) continue;
 
-                    string description = decoded.Substring(0, decoded.IndexOf('|'));
-                    string completedStr = decoded.Substring(decoded.IndexOf('|') + 1);
-                    bool completed = (completedStr == "1");
+                        string description = decrypted.Substring(0, decrypted.IndexOf('|'));
+                        string completedStr = decrypted.Substring(decrypted.IndexOf('|') + 1);
+                        bool completed = (completedStr == "1");
+                        loaded.Add(new Task(description, completed));
+                    }
+                    catch
+                    {
+                        // if decryption fails, treat as plain text
+                        string decoded = line;
+                        if (string.IsNullOrWhiteSpace(decoded) || !decoded.Contains("|")) continue;
 
-                    loaded.Add(new Task(description, completed));
+                        string description = decoded.Substring(0, decoded.IndexOf('|'));
+                        string completedStr = decoded.Substring(decoded.IndexOf('|') + 1);
+                        bool completed = (completedStr == "1");
+                        loaded.Add(new Task(description, completed));
+                    }
                 }
 
                 return loaded;
@@ -160,9 +207,12 @@ namespace CSharpToDoList
             {
                 using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    foreach (Task task in tasks)
+                    foreach (var task in tasks)
                     {
-                        writer.WriteLine(Encode(task.GetTaskString()));
+                        // Encrypt each task individually with a new IV per task
+                        byte[] encryptedBytes = Encrypt(task.GetTaskString(), key);
+                        string base64 = Convert.ToBase64String(encryptedBytes);
+                        writer.WriteLine(base64);
                     }
                 }
             }
@@ -259,47 +309,50 @@ namespace CSharpToDoList
                 input = Console.ReadLine();
             }
 
-            string Encode(object input)
+            // ====================
+            // AES ENCRYPTION / DECRYPTION
+            // ====================
+            byte[] Encrypt(string plainText, byte[] key)
             {
-                string stringedInput = input.ToString();
-                int n = 8;
-                StringBuilder sb = new StringBuilder();
-                foreach (char c in stringedInput.ToCharArray())
+                using (Aes aes = Aes.Create())
                 {
-                    sb.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
+                    aes.Key = key;
+                    aes.GenerateIV(); // new IV for each encryption
+
+                    using (var ms = new MemoryStream())
+                    {
+                        // Prepend IV to ciphertext
+                        ms.Write(aes.IV, 0, aes.IV.Length);
+
+                        using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                        using (var sw = new StreamWriter(cs))
+                        {
+                            sw.Write(plainText);
+                        }
+
+                        return ms.ToArray();
+                    }
                 }
-                string r1 = sb.ToString();
-                string r2 = string.Join(string.Empty, r1.Select((x, i) => i > 0 && i % n == 0 ? $" {x}" : x.ToString()));
-                var plainTextBytes = Encoding.UTF8.GetBytes(r2);
-                string r3 = Convert.ToBase64String(plainTextBytes);
-                StringBuilder sb2 = new StringBuilder();
-                foreach (char c in r3.ToCharArray())
-                {
-                    sb2.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
-                }
-                string r4 = sb2.ToString();
-                string r5 = string.Join(string.Empty, r4.Select((x, i) => i > 0 && i % n == 0 ? $" {x}" : x.ToString()));
-                return r5;
             }
 
-            string Decode(string input)
+            string Decrypt(byte[] cipherData, byte[] key)
             {
-                string r1 = input.Replace(" ", string.Empty);
-                List<byte> byteList = new List<byte>();
-                for (int i = 0; i < r1.Length; i += 8)
+                using (Aes aes = Aes.Create())
                 {
-                    byteList.Add(Convert.ToByte(r1.Substring(i, 8), 2));
+                    aes.Key = key;
+
+                    // Extract IV from the beginning of cipherData
+                    byte[] iv = new byte[aes.BlockSize / 8];
+                    Array.Copy(cipherData, 0, iv, 0, iv.Length);
+                    aes.IV = iv;
+
+                    using (var ms = new MemoryStream(cipherData, iv.Length, cipherData.Length - iv.Length))
+                    using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                    using (var sr = new StreamReader(cs))
+                    {
+                        return sr.ReadToEnd();
+                    }
                 }
-                string r2 = Encoding.ASCII.GetString(byteList.ToArray());
-                var base64EncodedBytes = Convert.FromBase64String(r2);
-                string r3 = Encoding.UTF8.GetString(base64EncodedBytes);
-                string r4 = r3.Replace(" ", string.Empty);
-                List<byte> byteList2 = new List<byte>();
-                for (int i = 0; i < r4.Length; i += 8)
-                {
-                    byteList2.Add(Convert.ToByte(r4.Substring(i, 8), 2));
-                }
-                return Encoding.ASCII.GetString(byteList2.ToArray());
             }
         }
 
