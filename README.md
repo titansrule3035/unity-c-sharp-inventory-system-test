@@ -18,7 +18,7 @@ Below is a curated list of projects, with links to their respective repositories
 
 **Description:** A WinForms-based calculator application that supports full expression evaluation and floating-point numbers.
 **Technologies:** C# .NET Framework, WinForms
-**Highlights:** Supports addition, subtraction, multiplication, division, decimal numbers, and full expression parsing with operator precedence. The UI includes a fixed-size window and an intuitive button layout.
+**Highlights:** Supports addition, subtraction, multiplication, division, decimal numbers, and full expression parsing with operator precedence, using **a custom, in-house algebraic expression parser**. The UI includes a fixed-size window and an intuitive button layout.
 
 ### 🔹 [Project Name 2](link-to-repo)
 
