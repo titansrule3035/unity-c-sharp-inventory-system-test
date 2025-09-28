@@ -40,13 +40,17 @@
             this.nine_button = new System.Windows.Forms.Button();
             this.multiply_button = new System.Windows.Forms.Button();
             this.divide_button = new System.Windows.Forms.Button();
-            this.equals_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.zero_button = new System.Windows.Forms.Button();
             this.decimal_button = new System.Windows.Forms.Button();
             this.seven_button = new System.Windows.Forms.Button();
             this.text_box = new System.Windows.Forms.TextBox();
             this.clear_button = new System.Windows.Forms.Button();
+            this.equals_button = new System.Windows.Forms.Button();
+            this.delete_button = new System.Windows.Forms.Button();
+            this.exponent_button = new System.Windows.Forms.Button();
+            this.open_parentheses_button = new System.Windows.Forms.Button();
+            this.close_parentheses_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +60,7 @@
             this.one_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.one_button.Location = new System.Drawing.Point(3, 3);
             this.one_button.Name = "one_button";
-            this.one_button.Size = new System.Drawing.Size(172, 117);
+            this.one_button.Size = new System.Drawing.Size(201, 155);
             this.one_button.TabIndex = 1;
             this.one_button.Text = "1";
             this.one_button.UseVisualStyleBackColor = true;
@@ -66,9 +70,9 @@
             // 
             this.two_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.two_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.two_button.Location = new System.Drawing.Point(181, 3);
+            this.two_button.Location = new System.Drawing.Point(210, 3);
             this.two_button.Name = "two_button";
-            this.two_button.Size = new System.Drawing.Size(172, 117);
+            this.two_button.Size = new System.Drawing.Size(201, 155);
             this.two_button.TabIndex = 2;
             this.two_button.Text = "2";
             this.two_button.UseVisualStyleBackColor = true;
@@ -78,9 +82,9 @@
             // 
             this.three_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.three_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.three_button.Location = new System.Drawing.Point(359, 3);
+            this.three_button.Location = new System.Drawing.Point(417, 3);
             this.three_button.Name = "three_button";
-            this.three_button.Size = new System.Drawing.Size(172, 117);
+            this.three_button.Size = new System.Drawing.Size(201, 155);
             this.three_button.TabIndex = 3;
             this.three_button.Text = "3";
             this.three_button.UseVisualStyleBackColor = true;
@@ -88,23 +92,24 @@
             // 
             // add_button
             // 
+            this.add_button.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.add_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.add_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.add_button.Location = new System.Drawing.Point(537, 3);
+            this.add_button.Location = new System.Drawing.Point(624, 3);
             this.add_button.Name = "add_button";
-            this.add_button.Size = new System.Drawing.Size(174, 117);
+            this.add_button.Size = new System.Drawing.Size(201, 155);
             this.add_button.TabIndex = 4;
             this.add_button.Text = "+";
-            this.add_button.UseVisualStyleBackColor = true;
+            this.add_button.UseVisualStyleBackColor = false;
             this.add_button.Click += new System.EventHandler(this.add_button_Click);
             // 
             // four_button
             // 
             this.four_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.four_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.four_button.Location = new System.Drawing.Point(3, 126);
+            this.four_button.Location = new System.Drawing.Point(3, 164);
             this.four_button.Name = "four_button";
-            this.four_button.Size = new System.Drawing.Size(172, 117);
+            this.four_button.Size = new System.Drawing.Size(201, 155);
             this.four_button.TabIndex = 5;
             this.four_button.Text = "4";
             this.four_button.UseVisualStyleBackColor = true;
@@ -114,9 +119,9 @@
             // 
             this.five_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.five_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.five_button.Location = new System.Drawing.Point(181, 126);
+            this.five_button.Location = new System.Drawing.Point(210, 164);
             this.five_button.Name = "five_button";
-            this.five_button.Size = new System.Drawing.Size(172, 117);
+            this.five_button.Size = new System.Drawing.Size(201, 155);
             this.five_button.TabIndex = 6;
             this.five_button.Text = "5";
             this.five_button.UseVisualStyleBackColor = true;
@@ -126,9 +131,9 @@
             // 
             this.six_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.six_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.six_button.Location = new System.Drawing.Point(359, 126);
+            this.six_button.Location = new System.Drawing.Point(417, 164);
             this.six_button.Name = "six_button";
-            this.six_button.Size = new System.Drawing.Size(172, 117);
+            this.six_button.Size = new System.Drawing.Size(201, 155);
             this.six_button.TabIndex = 7;
             this.six_button.Text = "6";
             this.six_button.UseVisualStyleBackColor = true;
@@ -136,23 +141,24 @@
             // 
             // subtract_button
             // 
+            this.subtract_button.BackColor = System.Drawing.SystemColors.ControlDark;
             this.subtract_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subtract_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.subtract_button.Location = new System.Drawing.Point(537, 126);
+            this.subtract_button.Location = new System.Drawing.Point(624, 164);
             this.subtract_button.Name = "subtract_button";
-            this.subtract_button.Size = new System.Drawing.Size(174, 117);
+            this.subtract_button.Size = new System.Drawing.Size(201, 155);
             this.subtract_button.TabIndex = 8;
             this.subtract_button.Text = "-";
-            this.subtract_button.UseVisualStyleBackColor = true;
+            this.subtract_button.UseVisualStyleBackColor = false;
             this.subtract_button.Click += new System.EventHandler(this.subtract_button_Click);
             // 
             // eight_button
             // 
             this.eight_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eight_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eight_button.Location = new System.Drawing.Point(181, 249);
+            this.eight_button.Location = new System.Drawing.Point(210, 325);
             this.eight_button.Name = "eight_button";
-            this.eight_button.Size = new System.Drawing.Size(172, 117);
+            this.eight_button.Size = new System.Drawing.Size(201, 155);
             this.eight_button.TabIndex = 10;
             this.eight_button.Text = "8";
             this.eight_button.UseVisualStyleBackColor = true;
@@ -162,9 +168,9 @@
             // 
             this.nine_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nine_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nine_button.Location = new System.Drawing.Point(359, 249);
+            this.nine_button.Location = new System.Drawing.Point(417, 325);
             this.nine_button.Name = "nine_button";
-            this.nine_button.Size = new System.Drawing.Size(172, 117);
+            this.nine_button.Size = new System.Drawing.Size(201, 155);
             this.nine_button.TabIndex = 11;
             this.nine_button.Text = "9";
             this.nine_button.UseVisualStyleBackColor = true;
@@ -172,47 +178,41 @@
             // 
             // multiply_button
             // 
+            this.multiply_button.BackColor = System.Drawing.SystemColors.ControlDark;
             this.multiply_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.multiply_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.multiply_button.Location = new System.Drawing.Point(537, 249);
+            this.multiply_button.Location = new System.Drawing.Point(624, 325);
             this.multiply_button.Name = "multiply_button";
-            this.multiply_button.Size = new System.Drawing.Size(174, 117);
+            this.multiply_button.Size = new System.Drawing.Size(201, 155);
             this.multiply_button.TabIndex = 12;
             this.multiply_button.Text = "*";
-            this.multiply_button.UseVisualStyleBackColor = true;
+            this.multiply_button.UseVisualStyleBackColor = false;
             this.multiply_button.Click += new System.EventHandler(this.multiply_button_Click);
             // 
             // divide_button
             // 
             this.divide_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.divide_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.divide_button.Location = new System.Drawing.Point(359, 372);
+            this.divide_button.Location = new System.Drawing.Point(417, 486);
             this.divide_button.Name = "divide_button";
-            this.divide_button.Size = new System.Drawing.Size(172, 119);
+            this.divide_button.Size = new System.Drawing.Size(201, 155);
             this.divide_button.TabIndex = 15;
             this.divide_button.Text = "/";
             this.divide_button.UseVisualStyleBackColor = true;
             this.divide_button.Click += new System.EventHandler(this.divide_button_Click);
             // 
-            // equals_button
-            // 
-            this.equals_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.equals_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.equals_button.Location = new System.Drawing.Point(537, 372);
-            this.equals_button.Name = "equals_button";
-            this.equals_button.Size = new System.Drawing.Size(174, 119);
-            this.equals_button.TabIndex = 16;
-            this.equals_button.Text = "=";
-            this.equals_button.UseVisualStyleBackColor = true;
-            this.equals_button.Click += new System.EventHandler(this.equals_button_Click);
-            // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.close_parentheses_button, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.open_parentheses_button, 4, 2);
+            this.tableLayoutPanel1.Controls.Add(this.exponent_button, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.delete_button, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.zero_button, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.decimal_button, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.seven_button, 0, 2);
@@ -237,7 +237,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(714, 494);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1038, 644);
             this.tableLayoutPanel1.TabIndex = 17;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -245,9 +246,9 @@
             // 
             this.zero_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.zero_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zero_button.Location = new System.Drawing.Point(3, 372);
+            this.zero_button.Location = new System.Drawing.Point(3, 486);
             this.zero_button.Name = "zero_button";
-            this.zero_button.Size = new System.Drawing.Size(172, 119);
+            this.zero_button.Size = new System.Drawing.Size(201, 155);
             this.zero_button.TabIndex = 20;
             this.zero_button.Text = "0";
             this.zero_button.UseVisualStyleBackColor = true;
@@ -257,9 +258,9 @@
             // 
             this.decimal_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.decimal_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.decimal_button.Location = new System.Drawing.Point(181, 372);
+            this.decimal_button.Location = new System.Drawing.Point(210, 486);
             this.decimal_button.Name = "decimal_button";
-            this.decimal_button.Size = new System.Drawing.Size(172, 119);
+            this.decimal_button.Size = new System.Drawing.Size(201, 155);
             this.decimal_button.TabIndex = 19;
             this.decimal_button.Text = ".";
             this.decimal_button.UseVisualStyleBackColor = true;
@@ -269,9 +270,9 @@
             // 
             this.seven_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.seven_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.seven_button.Location = new System.Drawing.Point(3, 249);
+            this.seven_button.Location = new System.Drawing.Point(3, 325);
             this.seven_button.Name = "seven_button";
-            this.seven_button.Size = new System.Drawing.Size(172, 117);
+            this.seven_button.Size = new System.Drawing.Size(201, 155);
             this.seven_button.TabIndex = 17;
             this.seven_button.Text = "7";
             this.seven_button.UseVisualStyleBackColor = true;
@@ -284,27 +285,93 @@
             this.text_box.Location = new System.Drawing.Point(0, 0);
             this.text_box.Name = "text_box";
             this.text_box.ReadOnly = true;
-            this.text_box.Size = new System.Drawing.Size(714, 75);
+            this.text_box.Size = new System.Drawing.Size(1038, 75);
             this.text_box.TabIndex = 0;
             this.text_box.Text = "NaN";
             this.text_box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // clear_button
             // 
+            this.clear_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.clear_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clear_button.Location = new System.Drawing.Point(3, 12);
+            this.clear_button.Location = new System.Drawing.Point(3, 0);
             this.clear_button.Name = "clear_button";
-            this.clear_button.Size = new System.Drawing.Size(172, 60);
+            this.clear_button.Size = new System.Drawing.Size(201, 72);
             this.clear_button.TabIndex = 18;
             this.clear_button.Text = "C";
-            this.clear_button.UseVisualStyleBackColor = true;
+            this.clear_button.UseVisualStyleBackColor = false;
             this.clear_button.Click += new System.EventHandler(this.clear_button_Click);
+            // 
+            // equals_button
+            // 
+            this.equals_button.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.equals_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.equals_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.equals_button.Location = new System.Drawing.Point(624, 486);
+            this.equals_button.Name = "equals_button";
+            this.equals_button.Size = new System.Drawing.Size(201, 155);
+            this.equals_button.TabIndex = 16;
+            this.equals_button.Text = "=";
+            this.equals_button.UseVisualStyleBackColor = false;
+            this.equals_button.Click += new System.EventHandler(this.equals_button_Click);
+            // 
+            // delete_button
+            // 
+            this.delete_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.delete_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.delete_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_button.Location = new System.Drawing.Point(831, 3);
+            this.delete_button.Name = "delete_button";
+            this.delete_button.Size = new System.Drawing.Size(204, 155);
+            this.delete_button.TabIndex = 21;
+            this.delete_button.Text = "Del";
+            this.delete_button.UseVisualStyleBackColor = false;
+            this.delete_button.Click += new System.EventHandler(this.delete_button_Click);
+            // 
+            // exponent_button
+            // 
+            this.exponent_button.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.exponent_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.exponent_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exponent_button.Location = new System.Drawing.Point(831, 164);
+            this.exponent_button.Name = "exponent_button";
+            this.exponent_button.Size = new System.Drawing.Size(204, 155);
+            this.exponent_button.TabIndex = 22;
+            this.exponent_button.Text = "^";
+            this.exponent_button.UseVisualStyleBackColor = false;
+            this.exponent_button.Click += new System.EventHandler(this.exponent_button_Click);
+            // 
+            // open_parentheses_button
+            // 
+            this.open_parentheses_button.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.open_parentheses_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.open_parentheses_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.open_parentheses_button.Location = new System.Drawing.Point(831, 325);
+            this.open_parentheses_button.Name = "open_parentheses_button";
+            this.open_parentheses_button.Size = new System.Drawing.Size(204, 155);
+            this.open_parentheses_button.TabIndex = 23;
+            this.open_parentheses_button.Text = "(";
+            this.open_parentheses_button.UseVisualStyleBackColor = false;
+            this.open_parentheses_button.Click += new System.EventHandler(this.open_parentheses_button_Click);
+            // 
+            // close_parentheses_button
+            // 
+            this.close_parentheses_button.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.close_parentheses_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.close_parentheses_button.Font = new System.Drawing.Font("Lucida Fax", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.close_parentheses_button.Location = new System.Drawing.Point(831, 486);
+            this.close_parentheses_button.Name = "close_parentheses_button";
+            this.close_parentheses_button.Size = new System.Drawing.Size(204, 155);
+            this.close_parentheses_button.TabIndex = 24;
+            this.close_parentheses_button.Text = ")";
+            this.close_parentheses_button.UseVisualStyleBackColor = false;
+            this.close_parentheses_button.Click += new System.EventHandler(this.close_parentheses_button_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 569);
+            this.ClientSize = new System.Drawing.Size(1038, 719);
             this.Controls.Add(this.clear_button);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.text_box);
@@ -329,13 +396,17 @@
         private System.Windows.Forms.Button nine_button;
         private System.Windows.Forms.Button multiply_button;
         private System.Windows.Forms.Button divide_button;
-        private System.Windows.Forms.Button equals_button;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox text_box;
         private System.Windows.Forms.Button seven_button;
         private System.Windows.Forms.Button decimal_button;
         private System.Windows.Forms.Button zero_button;
         private System.Windows.Forms.Button clear_button;
+        private System.Windows.Forms.Button equals_button;
+        private System.Windows.Forms.Button close_parentheses_button;
+        private System.Windows.Forms.Button open_parentheses_button;
+        private System.Windows.Forms.Button exponent_button;
+        private System.Windows.Forms.Button delete_button;
     }
 }
 
