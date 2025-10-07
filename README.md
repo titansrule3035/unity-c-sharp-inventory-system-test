@@ -20,19 +20,11 @@ Below is a curated list of projects, with links to their respective repositories
 **Technologies:** C# .NET Framework, WinForms  
 **Highlights:** Supports addition, subtraction, multiplication, division, decimal numbers, and full expression parsing with operator precedence, using **a custom, in-house, algebraic expression parser**. The UI includes a fixed-size window and an intuitive button layout.  
 
-### 🔹 [Project Name 2](link-to-repo)  
+### 🔹 [Unity C# Inventory System Demo](https://github.com/titansrule3035/solo-comp-sci-portfolio/tree/main/projects/unity-c-sharp-inventory-system-test)    
 
-**Description:** Brief summary of the project.  
-**Technologies:** List of technologies used.  
-**Highlights:** Key features or functionality.  
-
-### 🔹 [Project Name 3](link-to-repo)  
-
-**Description:** Brief summary of the project.  
-**Technologies:** List of technologies used.  
-**Highlights:** Key features or functionality.  
-
-*(Add more projects as needed)*  
+**Description:** A demo "game" project in Unity showcasing a complete inventory system, dialogue system, debug system, and their interactions within a closed space.  
+**Technologies:** C#, .NET Framework, Unity Engine, INK API
+**Highlights:** Easy-to-use inventory system with grab-and-drop based item functionality, item stacking, and item usage. The dialogue system is powered by the INK API, allowing for branching narratives and player choices. The debug system provides real-time feedback on game state and player actions.
 
 ---  
 
