@@ -28,15 +28,20 @@ Below is a curated list of projects, with links to their respective repositories
 
 ---  
 
-## 🛠 Skills Demonstrated  
+## 🛠 Skills Demonstrated
 
-Throughout these projects, I’ve applied skills in:  
+Throughout these projects, I’ve applied skills in:
 
-* **Programming Languages:** C#  
-* **Tools & Platforms:** Git, GitHub, Windows 11, .NET 9  
-* **Computer Science Principles:** Algorithm Design and Data Structures, Software Design & Modularity, Security & Cryptography, Input Validation & Error Handling, Human-Computer Interaction, Algorithms for Expression Parsing (Calculator), File I/O, Use of Object-Oriented Programming, System Programming Concepts, Software Reliability and Robustness  
+* **Programming Languages:** C#
+* **Tools & Platforms:** Git, GitHub, Windows 11, .NET 9, Unity Engine, INK API
+* **Computer Science Principles & Applications:**
 
----  
+  * **C# To-Do List** → File I/O with `FileStream`, text-based persistence, security with **cryptography and obfuscation**, error handling, and data protection.
+  * **C# Calculator UI** → **Custom expression parsing algorithm**, operator precedence handling, floating-point arithmetic, UI/UX design with WinForms, and robustness through input validation.
+  * **Unity C# Inventory System Demo** → Object-Oriented Design, **inventory and item management system**, branching narrative integration with **INK API**, modular architecture, **event-driven programming**, and real-time debugging systems.
+* **Core Competencies:** Algorithm Design and Data Structures, Software Design & Modularity, Security & Cryptography, Input Validation & Error Handling, Human-Computer Interaction, Object-Oriented Programming, Software Reliability and Robustness, System Programming Concepts.
+
+---
 
 ## 📈 GitHub Stats  
 
