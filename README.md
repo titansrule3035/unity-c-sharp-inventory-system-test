@@ -21,7 +21,7 @@ This project is a comprehensive inventory and item management system for Unity, 
 - **Debug Console:**  
   In-game console for executing debug commands, including inventory manipulation.
 - **Dialogue & Game State Awareness:**  
-  Inventory and menu logic respect dialogue state and game pause.
+  Inventory and menu logic respect dialogue state and game pause. ***_Powered by [inkle's ink](https://www.inklestudios.com/ink) API._***
 - **Extensible Architecture:**  
   Modular classes (`InventoryManager`, `InventoryPage`, `ItemDB`, etc.) for easy feature addition.
 
