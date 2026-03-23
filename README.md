@@ -1,5 +1,11 @@
 # Unity Inventory & Item Management System
 
+![Unity](https://img.shields.io/badge/Unity_Engine_-black?logo=unity)
+![C#](https://img.shields.io/badge/-C%23-purple?logo=dotnet)
+![Platform](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)
+![Status](https://img.shields.io/badge/Status:-Completed_Demo_Production-lightgreen)
+![License](https://img.shields.io/badge/License:-Educational-lightgreen)
+
 A **modular inventory and item management system for Unity** designed for RPGs, adventure games, and narrative-driven experiences.
 
 The system includes **multi-page inventories, an item database, player stat integration, runtime debug console, and save/load support**, all written in **C#** with an extensible architecture.
