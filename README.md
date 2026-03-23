@@ -1,181 +1,369 @@
 # Unity Inventory & Item Management System
 
-## Overview
+A **modular inventory and item management system for Unity** designed for RPGs, adventure games, and narrative-driven experiences.
 
-This project is a comprehensive inventory and item management system for Unity, designed for RPGs, adventure, and story-driven games. It features a multi-page inventory, item database, player stat integration, debug console, and modular architecture for easy expansion. The system is written in C# (targeting .NET Framework 4.7.1, C# 9.0).
+The system includes **multi-page inventories, an item database, player stat integration, runtime debug console, and save/load support**, all written in **C#** with an extensible architecture.
 
 ---
 
-## Features
+# Table of Contents
 
-- **Multi-Page Inventory:**  
-  Supports multiple inventory pages (consumables, weapons, armor, key items), each with its own grid and UI.
-- **Item Database:**  
-  Centralized `ItemDB` for item definitions, stack limits, icons, and destination logic.
-- **Player Stat Integration:**  
-  Equipping weapons/armor dynamically modifies player stats (health, speed, jump, attack, defense).
-- **Inventory Operations:**  
-  Add, remove, flood, set, and drop items with stack management and validation.
-- **UI Integration:**  
-  Uses TextMeshPro for inventory display and menu navigation.
-- **Debug Console:**  
-  In-game console for executing debug commands, including inventory manipulation.
-- **Dialogue & Game State Awareness:**  
-  Inventory and menu logic respect dialogue state and game pause. ***_Powered by [inkle's ink](https://www.inklestudios.com/ink) API._***
-- **Extensible Architecture:**  
-  Modular classes (`InventoryManager`, `InventoryPage`, `ItemDB`, etc.) for easy feature addition.
+* [Overview](#overview)
+* [Features](#features)
+* [Architecture](#architecture)
+* [Controls](#controls)
+* [Example Usage](#example-usage)
+* [Item IDs](#item-ids)
+* [Project Structure](#project-structure)
+* [Running The Test Build](#running-the-test-build)
+* [Credits](#credits)
+* [License](#license)
 
----  
+---
 
-## Controls
+# Overview
 
-| Action                | Key                |  
-|-----------------------|--------------------|  
-| Move / Menu Navigation| Arrow Keys         |  
-| Confirm Menu Option   | Z                  |  
-| Toggle Inventory      | E                  |  
-| Toggle Console (Debug)| Tab (Debug Mode)   |  
-| Pause Game            | Escape             |  
+This project implements a **fully functional inventory framework for Unity games**.
 
-- **Console Commands:**  
-  Type `.help` in the console for a list of commands.    
-  For item-related commands, ask for item IDs as needed.
+It is designed with **modularity and scalability in mind**, making it easy to add:
 
----  
+* new item types
+* additional inventory pages
+* custom gameplay mechanics
+* new UI features
 
-## Code Highlights
+The system integrates directly with:
+
+* **TextMeshPro** for UI
+* **Ink (inkle)** for dialogue and narrative systems
+
+---
+
+# Features
+
+## Multi-Page Inventory
+
+Inventory is split into logical pages:
+
+* Consumables
+* Weapons
+* Armor
+* Key Items
+
+Each page contains its own:
+
+* item grid
+* UI panel
+* equipped slots
+
+---
+
+## Item Database
+
+`ItemDB` serves as the **central registry for all item data**, including:
+
+* item names
+* item icons
+* stack sizes
+* stat modifiers
+* destination inventory page
+
+---
+
+## Player Stat Integration
+
+Equipping items modifies player attributes:
+
+* Health
+* Speed
+* Jump
+* Attack
+* Defense
+
+Armor equipment can also update the **player's visual sprite**.
+
+---
+
+## Inventory Operations
+
+Supported operations include:
+
+* Add items
+* Remove items
+* Set item counts
+* Flood inventory
+* Drop items
+* Reset inventory
+* Stack validation
+
+---
+
+## Debug Console
+
+An **in-game developer console** allows runtime commands.
+
+Example uses:
+
+* spawning items
+* editing inventory
+* debugging gameplay
+
+Type `.help` in the console to see commands.
+
+---
+
+## Save & Load System
+
+The `SaveManager` stores:
+
+* Player position
+* Entire inventory state
+
+The system serializes inventory pages and restores them during load.
+
+---
+
+## Dialogue Awareness
+
+Inventory input is automatically disabled when:
+
+* dialogue is active
+* the game is paused
+
+Dialogue integration uses **Ink**.
+
+---
+
+# Architecture
+
+The project follows a **component-based Unity architecture**.
+
+## Core Systems
 
 ### InventoryManager
 
-- **Central Controller:**  
-  Handles all inventory logic, including page switching, item operations, and stat updates.
-- **Static API:**  
-  Most inventory operations are static, allowing easy access from anywhere in the codebase.
-- **Validation:**  
-  Extensive checks for item existence, stack limits, and valid destinations.
-- **UI Updates:**  
-  Dynamically updates TextMeshPro UI elements and inventory panels.
+Central controller for inventory logic.
+
+Responsibilities:
+
+* managing inventory pages
+* handling item operations
+* updating UI
+* applying stat modifiers
+
+Most methods are exposed through a **static API**.
+
+---
 
 ### InventoryPage
 
-- **Page Types:**  
-  Enum-based system for different inventory categories.
-- **Grid Management:**  
-  Each page manages its own grid of items and equipped slots.
-- **Sprite Updates:**    
-  Handles updating item icons and equipped visuals.
+Represents a single inventory category.
+
+Responsibilities:
+
+* managing grid slots
+* tracking equipped items
+* updating item sprites
+* handling UI selectors
+
+---
 
 ### ItemDB
 
-- **Centralized Data:**  
-  All item data (names, icons, stack sizes, etc.) is managed here.
-- **Destination Logic:**  
-  Determines which inventory page an item belongs to.
+The global **item registry**.
 
-### Player Integration
+Stores:
 
-- **Stat Modifiers:**  
-  Equipping items directly affects player stats.
-- **Sprite Updates:**    
-  Armor changes update the player's visual appearance.
-
-### Debug & Console
-
-- **DebugManager:**  
-  Logs inventory actions and errors for easier troubleshooting.
-- **Console Commands:**    
-  Allows runtime manipulation of inventory and game state.
+* item definitions
+* stack sizes
+* metadata
+* stat modifiers
+* icon references
 
 ---
 
-## Example: Adding an Item
-// Add 3 potions (itemID = 1) to the player's inventory  
-`InventoryManager.Add(1, 3);`
+### Player
 
+Stores default player stats and runtime stat values.
 
-## Example: Removing an Item
-// Remove 1 sword (itemID = 2) from the player's inventory  
-`InventoryManager.Remove(2, 1);`
+Equipped items modify player stats through:
 
+```
 
-## Example: Dropping an Item
-// Drop the item at index 0 from the weapons page
-`InventoryManager.DropItem(0, InventoryPage.PageTypes.weapons);`
+InventoryManager.UpdateStats()
 
+```
 
 ---
 
-## Extending the System
+### SaveManager
 
-- **Add New Item Types:**  
-  Update `ItemDB` and extend `InventoryPage.PageTypes`.
-- **Custom Inventory Pages:**  
-  Add new `InventoryPage` instances and update UI as needed.
-- **New Console Commands:**  
-  Implement in `DebugManager` or the console handler.
+Handles persistence.
 
----
+Process:
 
+```
 
-## Getting Started
+Inventory Pages
+v
+Flattened Arrays
+v
+Encoded Save Data (Binary -> Base64 -> Binary)
+v
+Stored File
 
-### Prerequisites
+````
 
-* [.NET Framework](https://dotnet.microsoft.com/download/dotnet-framework) 9.0 or higher installed
-
-### Running the Application
-
-1. Clone the contents of this repository.
-2. Navigate to the  `Builds` folder.
-3. Run the `Inventory System Test Version 2.exe` file.
-
-### **Debug Console:**
-Enable debug mode to use the in-game console.
+On load, the process is reversed to reconstruct inventory pages.
 
 ---
 
-## Notes
+### DebugManager
 
-**Item IDs:**  
-Each item is referenced by a unique integer ID. Use the console or ask for a list of IDs as needed.
+Handles:
 
-| Item ID | Item Name      |  
-  |:-------:|----------------|  
-|    0    | Empty          |  
-|  12003  | Diamond Helmet |  
-|  12002  | Gold Helmet    |  
-|  12001  | Iron Helmet    |  
-|  12004  | Ultra Helmet   |
-|    1    | Apple          |
-|    2    | Banana         |
-|    3    | Grapes         |
-|    4    | Lemon          |
-|    5    | Lime           |
-|    6    | Orange         |
-|    7    | Pear           |
-|    8    | Pineapple      |
-| 192003  | Diamond Sword  |
-| 192002  | Gold Sword     |
-| 192001  | Iron Sword     |
-| 192004  | Ultra Sword    |  
-
-- **Stack Limits:**  
-  Each item has a maximum stack size, enforced by the system.
-- **Dialogue & Pause:**  
-  Inventory and menu actions are disabled during dialogue or when the game is paused.
+* debug logging
+* runtime commands
+* console interaction
 
 ---
 
-## Credits
+# Controls
 
-- **TextMeshPro:**  
-  For advanced UI text rendering.
-- **Unity Engine:**  
-  Core game engine and editor.
+| Action | Key |
+|------|------|
+| Move / Menu Navigation | Arrow Keys |
+| Confirm Menu Option | Z |
+| Toggle Inventory | E |
+| Toggle Debug Console | Tab |
+| Pause Game | Escape |
 
 ---
 
-## License
+# Example Usage
 
-This project is provided as-is for educational and prototyping purposes.  
+## Adding an Item
+
+```csharp
+InventoryManager.Add(1, 3);
+````
+
+Adds **3 items with ID 1** to the inventory.
+
+---
+
+## Removing an Item
+
+```csharp
+InventoryManager.Remove(2, 1);
+```
+
+Removes **1 item with ID 2**.
+
+---
+
+## Dropping an Item
+
+```csharp
+InventoryManager.DropItem(0, InventoryPage.PageTypes.weapons);
+```
+
+Drops the **first weapon slot item** into the world.
+
+---
+
+# Item IDs
+
+Items are referenced by **unique integer IDs**.
+
+| ID     | Item           |
+| ------ | -------------- |
+| 0      | Empty          |
+| 1      | Apple          |
+| 2      | Banana         |
+| 3      | Grapes         |
+| 4      | Lemon          |
+| 5      | Lime           |
+| 6      | Orange         |
+| 7      | Pear           |
+| 8      | Pineapple      |
+| 12001  | Iron Helmet    |
+| 12002  | Gold Helmet    |
+| 12003  | Diamond Helmet |
+| 12004  | Ultra Helmet   |
+| 192001 | Iron Sword     |
+| 192002 | Gold Sword     |
+| 192003 | Diamond Sword  |
+| 192004 | Ultra Sword    |
+
+Each item also has a **maximum stack size** enforced by the system.
+
+---
+
+# Project Structure
+
+```
+Scripts
+
+|-- Inventory
+|   |-- InventoryManager.cs
+|   |-- InventoryPage.cs
+|   `-- ItemDB.cs
+|
+|-- Player
+|   `-- Player.cs
+|
+|-- Save
+|   `-- SaveManager.cs
+|
+|-- Debug
+|   `-- DebugManager.cs
+|
+|-- UI
+|   `-- Inventory UI
+|
+`-- Dialogue
+    `-- Ink Integration
+```
+
+---
+
+# Running The Test Build
+
+1. Clone the repository
+
+2. Navigate to:
+
+```
+Builds/
+```
+
+3. Run
+
+```
+Inventory System Test Version 2.exe
+```
+
+---
+
+## Save Format
+
+The save system uses **base64 + bitstring encoding**.
+
+This is to ensure a fragile and obfuscated save file structure, which helps to prevent any unauthorized modifications to the player's save file outside the program.
+
+---
+
+# Credits
+
+* Unity Engine
+* TextMeshPro
+* Ink (inkle Studios)
+
+---
+
+# License
+
+This project is provided **as-is for educational and prototyping purposes.**
+
 For commercial use, please ensure compliance with all third-party asset licenses.

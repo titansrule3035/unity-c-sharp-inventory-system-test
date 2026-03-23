@@ -631,7 +631,7 @@ public class InventoryManager : MonoBehaviour
         }
         for (int i = 0; i < inventoryPages.Length; i++)
         {
-            for (int j = 0; i < inventoryPages[i].inventory.Length; j++)
+            for (int j = 0; j < inventoryPages[i].inventory.Length; j++)
             {
                 inventoryPages[i].inventory[j] = 0;
             }
